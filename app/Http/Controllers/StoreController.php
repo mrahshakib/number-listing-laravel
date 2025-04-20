@@ -20,7 +20,12 @@ class StoreController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    { 
+        // Convert Bangla numbers to English before validation
+        // $request->merge([
+        //     'number' => $this->convert($request->input('number'))
+        // ]);
+        
         $data = $request->validate([
             "name" => "required|string",
             "number" => "required|numeric|digits:11|starts_with:01|unique:stores,number"
@@ -46,9 +51,15 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Convert Bangla numbers to English before validation
+        // $request->merge([
+        //     'number' => $this->convert($request->input('number'))
+        // ]);
+        
+        
         $data = $request->validate([
             "name" => "required|string",
-            "number" => "required|numeric|digits:11|starts_with:01"
+            "number" => "required|numeric|digits:11|starts_with:01|unique:stores,number"
         ]);
         
         Store::findOrFail($id)->update($data);
@@ -65,4 +76,11 @@ class StoreController extends Controller
         flash()->success("Deleted successfully!");
         return redirect()->route('index');
     }
+    
+    // private function convert($number)
+    // {
+    //     $banglaDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+    //     $englishDigits = ['0','1','2','3','4','5','6','7','8','9'];
+    //     return str_replace($banglaDigits, $englishDigits, $number);
+    // }
 }
