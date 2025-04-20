@@ -59,7 +59,7 @@ class StoreController extends Controller
         
         $data = $request->validate([
             "name" => "required|string",
-            "number" => "required|numeric|digits:11|starts_with:01|unique:stores,number"
+            "number" => "required|numeric|digits:11|starts_with:01|unique:stores,number,$id"
         ]);
         
         Store::findOrFail($id)->update($data);
