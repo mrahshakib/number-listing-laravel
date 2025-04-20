@@ -87,7 +87,7 @@
                                     @endforeach
                                 @else
                                     <tr class="text-center">
-                                        <td colspan="5">No number saved yet.</td>
+                                        <td colspan="6">No number saved yet.</td>
                                     </tr>
                                 @endif
                             </tbody>
