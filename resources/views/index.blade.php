@@ -34,9 +34,9 @@
                                 </div>
                                 <div class="col-md-5">
                                     <div class="form-group">
-                                        <input type="number" name="number" id="number"
+                                        <input type="text" name="number" id="number"
                                             class="form-control form-control-lg" placeholder="Enter Number Here"
-                                            value="{{old('number')}}">
+                                            value="{{old('number')}}" oninput="convert(this)">
                                         @error('number')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -146,6 +146,22 @@
                 }
             });
         }
+        
+        
+        
+        //Convert Bangla to english
+        function convert(input) {
+            const banglaDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+            const englishDigits = ['0','1','2','3','4','5','6','7','8','9'];
+        
+            let converted = input.value.split('').map(char => {
+                let index = banglaDigits.indexOf(char);
+                return index !== -1 ? englishDigits[index] : char;
+            }).join('');
+        
+            input.value = converted;
+        }
+
     </script>
 </body>
 
