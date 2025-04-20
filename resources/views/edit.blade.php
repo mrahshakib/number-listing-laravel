@@ -33,9 +33,9 @@
                                 </div>
                                 <div class="col-md-5">
                                     <div class="form-group">
-                                        <input type="number" name="number" id="number"
+                                        <input type="text" name="number" id="number"
                                             class="form-control form-control-lg" placeholder="Enter Number Here"
-                                            value="{{old('number', $data->number)}}">
+                                            value="{{old('number', $data->number)}}" oninput="convert(this)">
                                         @error('number')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -59,6 +59,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
+    <script>
+        //Convert Bangla to english
+        function convert(input) {
+            const banglaDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+            const englishDigits = ['0','1','2','3','4','5','6','7','8','9'];
+        
+            let converted = input.value.split('').map(char => {
+                let index = banglaDigits.indexOf(char);
+                return index !== -1 ? englishDigits[index] : char;
+            }).join('');
+        
+            input.value = converted;
+        }
+    </script>
 </body>
 
 </html>
