@@ -26,7 +26,7 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <input type="text" name="name" id="name" class="form-control form-control-lg"
-                                            placeholder="Enter Name Here" value="{{old('name')}}">
+                                            placeholder="Enter Name Here" value="AGENT {{old('name', $data->total() + 1)}}">
                                         @error('name')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -74,7 +74,7 @@
                                         <tr class="text-center">
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>{{ $item->number }}</td>
+                                            <td>+88{{ $item->number }}</td>
                                             <td>{{ $item->created_at }}</td>
                                             <td>{{ $item->updated_at }}</td>
                                             <td>
@@ -149,18 +149,24 @@
         
         
         
-        //Convert Bangla to english
-        function convert(input) {
-            const banglaDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
-            const englishDigits = ['0','1','2','3','4','5','6','7','8','9'];
-        
-            let converted = input.value.split('').map(char => {
-                let index = banglaDigits.indexOf(char);
-                return index !== -1 ? englishDigits[index] : char;
-            }).join('');
-        
-            input.value = converted;
-        }
+        // Convert Bangla to English and keep only numbers
+            function convert(input) {
+                const banglaDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+                const englishDigits = ['0','1','2','3','4','5','6','7','8','9'];
+            
+                let trimmed = input.value.trim(); // Trim whitespace from both ends
+            
+                let converted = trimmed.split('').map(char => {
+                    let index = banglaDigits.indexOf(char);
+                    return index !== -1 ? englishDigits[index] : char;
+                }).join('');
+            
+                // Remove any non-numeric characters
+                converted = converted.replace(/[^0-9]/g, '');
+            
+                input.value = converted;
+            }
+
 
     </script>
 </body>
