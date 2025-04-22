@@ -26,7 +26,7 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <input type="text" name="name" id="name" class="form-control form-control-lg"
-                                            placeholder="Enter Name Here" value="AGENT {{old('name', $data->total() + 1)}}">
+                                            placeholder="Enter Name Here" value="{{old('name', 'AGENT '.$data->total() + 1)}}">
                                         @error('name')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
